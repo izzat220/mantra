@@ -19,9 +19,9 @@ const goals = () => {
 						</span>
 
 						<div className="flex flex-col space-y-5 text-[#ff6682] font-medium">
-							<span>"I am conquering my fears and becoming stronger each day"</span>
-							<span>“I create my own path and walk it with joy.”</span>
-							<span>“I will have a good day, because it's my choice.”</span>
+							<span>{`"I am conquering my fears and becoming stronger each day"`}</span>
+							<span>{`“I create my own path and walk it with joy.”`}</span>
+							<span>{`“I will have a good day, because it's my choice.”`}</span>
 						</div>
 					</div>
 
