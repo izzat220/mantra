@@ -15,11 +15,19 @@ const App = () => {
 	const [mantra, setMantra] = useState<string[]>([]);
 	const [dailies, setDailies] = useState<Task[]>([]);
 	const [goals, setGoals] = useState<Goal[]>([]);
+	const [showCompleted, setShowCompleted] = useState<string>("false");
 
 	const fetchData = async () => {
 		const rawMantra = window.localStorage.getItem("mantra_mantra");
 		const rawDailies = window.localStorage.getItem("mantra_dailies");
 		const rawGoals = window.localStorage.getItem("mantra_goals");
+		const rawShowCompleted = window.localStorage.getItem("mantra_showCompleted");
+
+		if (rawShowCompleted) {
+			setShowCompleted(rawShowCompleted);
+		} else {
+			window.localStorage.setItem("mantra_showCompleted", "false");
+		}
 
 		let parsedMantra = [];
 		let parsedDailies = [];
@@ -28,6 +36,10 @@ const App = () => {
 		if (rawMantra) parsedMantra = await JSON.parse(rawMantra);
 		if (rawDailies) parsedDailies = await JSON.parse(rawDailies);
 		if (rawGoals) parsedGoals = await JSON.parse(rawGoals);
+
+		parsedGoals.sort((a: Goal, b: Goal) => {
+			return Number(a.completed) - Number(b.completed);
+		});
 
 		setMantra(parsedMantra);
 		setDailies(parsedDailies);
@@ -54,7 +66,12 @@ const App = () => {
 					<Dailies dailies={dailies} setDailies={setDailies} />
 				</div>
 
-				<Goals goals={goals} setGoals={setGoals} />
+				<Goals
+					goals={goals}
+					setGoals={setGoals}
+					showCompleted={showCompleted}
+					setShowCompleted={setShowCompleted}
+				/>
 			</div>
 
 			{viewAddGoal && (
