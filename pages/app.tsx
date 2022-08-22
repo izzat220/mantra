@@ -1,13 +1,13 @@
 import { motion } from "framer-motion";
 import React, { useEffect, useState } from "react";
 
-import Modal from "./components/Modal";
+import Modal from "../components/Modal";
 
-import Dailies from "./components/custom/Dailies";
-import Mantra from "./components/custom/Mantra";
-import Goals from "./components/custom/Goals";
-import Task from "./interfaces/Task";
-import Goal from "./interfaces/Goal";
+import Dailies from "../components/custom/Dailies";
+import Mantra from "../components/custom/Mantra";
+import Goals from "../components/custom/Goals";
+import Task from "../interfaces/Task";
+import Goal from "../interfaces/Goal";
 
 const App = () => {
 	const [viewAddGoal, setViewAddGoal] = useState<boolean>(false);
