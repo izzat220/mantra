@@ -1,5 +1,6 @@
 import { motion } from "framer-motion";
 import React from "react";
+import Goal from "../../interfaces/Goal";
 import Modal from "../Modal";
 
 interface DeleteGoalProps {
@@ -18,8 +19,12 @@ const DeleteGoal = ({
 	const handleSubmit = () => {
 		let updatedGoals = [...goals];
 		updatedGoals.splice(goalIndex, 1);
+		updatedGoals.sort((a: Goal, b: Goal) => {
+			return Number(a.completed) - Number(b.completed);
+		});
 		setGoals(updatedGoals);
 		window.localStorage.setItem("mantra_goals", JSON.stringify(updatedGoals));
+
 		setViewModal(false);
 	};
 

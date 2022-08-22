@@ -28,6 +28,9 @@ const AddGoal = ({ goals, setGoals, setViewModal }: AddGoalProps) => {
 
 		let updatedGoals = [...goals];
 		updatedGoals.push(newGoal);
+		updatedGoals.sort((a: Goal, b: Goal) => {
+			return Number(a.completed) - Number(b.completed);
+		});
 		setGoals(updatedGoals);
 		window.localStorage.setItem("mantra_goals", JSON.stringify(updatedGoals));
 		setViewModal(false);

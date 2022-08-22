@@ -32,14 +32,6 @@ const Goals = ({
 		window.localStorage.setItem("mantra_goals", JSON.stringify(updatedGoals));
 	};
 
-	useEffect(() => {
-		let sortedGoals = [...goals];
-		sortedGoals.sort((a: Goal, b: Goal) => {
-			return Number(a.completed) - Number(b.completed);
-		});
-		setGoals(sortedGoals);
-	}, [setGoals, goals]);
-
 	return (
 		<>
 			<div className="flex flex-col w-full">
@@ -77,34 +69,41 @@ const Goals = ({
 					</div>
 				</div>
 
-				<div className="w-full grid grid-cols-2 gap-7 items-start">
-					{goals.map((item, index) => {
-						if (item.completed && showCompleted === "true") {
-							return (
-								<CompletedGoal
-									index={index}
-									item={item}
-									setGoalIndex={setGoalIndex}
-									setViewDeleteModal={setViewDeleteModal}
-									key={index}
-								/>
-							);
-						} else if (!item.completed) {
-							return (
-								<ActiveGoal
-									handleCheck={handleCheck}
-									index={index}
-									item={item}
-									setGoalIndex={setGoalIndex}
-									setViewCompleteModal={setViewCompleteModal}
-									setViewDeleteModal={setViewDeleteModal}
-									setViewEditModal={setViewEditModal}
-									key={index}
-								/>
-							);
-						}
-					})}
-				</div>
+				{goals.length ? (
+					<div className="w-full grid grid-cols-2 gap-7 items-start">
+						{goals.map((item, index) => {
+							if (item.completed && showCompleted === "true") {
+								return (
+									<CompletedGoal
+										index={index}
+										item={item}
+										setGoalIndex={setGoalIndex}
+										setViewDeleteModal={setViewDeleteModal}
+										key={index}
+									/>
+								);
+							} else if (!item.completed) {
+								return (
+									<ActiveGoal
+										handleCheck={handleCheck}
+										index={index}
+										item={item}
+										setGoalIndex={setGoalIndex}
+										setViewCompleteModal={setViewCompleteModal}
+										setViewDeleteModal={setViewDeleteModal}
+										setViewEditModal={setViewEditModal}
+										key={index}
+									/>
+								);
+							}
+						})}
+					</div>
+				) : (
+					<div className="flex flex-col w-full items-center justify-center py-3 space-y-2">
+						<i className="fas fa-box-open text-5xl text-slate-300"></i>
+						<span className="text-slate-400 text-sm">You got no dailies</span>
+					</div>
+				)}
 			</div>
 
 			{viewModal && (
